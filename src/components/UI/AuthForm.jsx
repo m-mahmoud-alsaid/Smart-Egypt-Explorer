@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import { HiOutlineUpload } from "react-icons/hi";
 
-function AuthForm({ mode = 'login', inputList = [], onSubmit, submitButtonTxt = 'Login' }) {
+function AuthForm({ mode = 'login', inputList = [], onSubmit, submitButtonTxt = 'Login', isDisabled }) {
     return (
         <>
             <PageTitle />
@@ -37,6 +37,7 @@ function AuthForm({ mode = 'login', inputList = [], onSubmit, submitButtonTxt = 
                                 placeholder={value.placeholder}
                                 options={value.options}
                                 name={value.name}
+                                onSelect={value.onSelect}
                             />
                         )}
 
@@ -75,8 +76,9 @@ function AuthForm({ mode = 'login', inputList = [], onSubmit, submitButtonTxt = 
                     </div>
                 ))}
 
-                <button className="w-full p-3 text-xl font-bold text-white bg-[#3183FF] rounded-lg">
-                    {submitButtonTxt}
+                <button className="w-full p-3 text-xl font-bold text-white bg-[#3183FF] rounded-lg"
+                    disabled={isDisabled}>
+                    {isDisabled ? "Loading..." : submitButtonTxt}
                 </button>
             </form>
 

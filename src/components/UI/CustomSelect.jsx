@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { MdArrowDropDown } from "react-icons/md";
 
-function CustomSelect({ options, placeholder, name }) {
+function CustomSelect({ options, placeholder, name, onSelect }) {
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState("");
 
@@ -19,7 +19,7 @@ function CustomSelect({ options, placeholder, name }) {
             </div>
 
             {open && (
-                <div className="absolute w-full bg-white  border rounded-lg mt-1 shadow text-[#9C9D9F]">
+                <div className="absolute w-full h-32 z-5 overflow-auto bg-white  border rounded-lg mt-1 shadow text-[#9C9D9F]">
                     {options.map((opt, i) => (
                         <div
                             key={i}
@@ -27,8 +27,14 @@ function CustomSelect({ options, placeholder, name }) {
                             onClick={() => {
                                 setSelected(opt);
                                 setOpen(false);
-                            }}
-                        >
+
+                                if (onSelect) {
+                                    onSelect({
+                                        name,
+                                        value: opt
+                                    });
+                                }
+                            }}>
                             {opt}
                         </div>
                     ))}
