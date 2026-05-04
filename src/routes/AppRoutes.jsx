@@ -7,12 +7,8 @@ import ForgetPasswordOne from '../pages/auth/ForgetPasswordOne'
 import ForgetPasswordTwo from '../pages/auth/ForgetPasswordTwo'
 import ForgetPasswordThree from '../pages/auth/ForgetPasswordThree'
 
+import ProtectedRoute from './ProtectedRoute'
 import Admin from '../pages/admin/Admin'
-import Restaurants from '../pages/admin/Restaurants'
-import Hotels from '../pages/admin/Hotels'
-import HotelsRequests from '../pages/admin/HotelsRequests'
-import TourGuides from '../pages/admin/TourGuides'
-import TourGuidesRequests from '../pages/admin/TourGuidesRequests'
 
 import Profile from '../pages/profile/Profile'
 import Services from '../pages/profile/Services'
@@ -28,12 +24,11 @@ function AppRoutes() {
             <Route path="/forget-password-two" element={<ForgetPasswordTwo />} />
             <Route path="/forget-password-three" element={<ForgetPasswordThree />} />
 
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/restaurants" element={<Restaurants />} />
-            <Route path="/hotels" element={<Hotels />} />
-            <Route path="/hotels-requests" element={<HotelsRequests />} />
-            <Route path="/tour-guides" element={<TourGuides />} />
-            <Route path="/tour-guides-requests" element={<TourGuidesRequests />} />
+            <Route path="/admin" element={
+                <ProtectedRoute >
+                    <Admin />
+                </ProtectedRoute>
+            } />
 
             <Route path="/profile" element={<Profile />} />
             <Route path="/services" element={<Services />} />
