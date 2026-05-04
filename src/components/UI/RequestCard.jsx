@@ -1,34 +1,82 @@
-import Image from '../../assets/images/login.png'
+import Image from '../../assets/images/login.png';
 
-function RequestCard({ requestInfoList = [] }) {
+function RequestCard({ requestInfoList, onApprove, onReject }) {
+
+    const item = requestInfoList;
+
+    const baseURL = import.meta.env.VITE_BASE_URL;
+
+    const imageUrl = requestInfoList?.documentUrl
+        ? `${baseURL}${requestInfoList.documentUrl}`
+        : Image;
+
     return (
-        <div className='bg-[#9c9d9f1a] flex flex-col justify-between rounded-xl 
-        shadow-lg overflow-hidden'>
-            <div className='flex flex-col'>
-                <img src={Image} className='h-48 mb-8 object-cover'></img>
-                <div className='grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-5'>
-                    {requestInfoList.map((value, index) => (
-                        <div className='flex justify-between pl-3 pr-3' key={index}>
-                            <div className='truncate'>
-                                <p className='font-bold truncate'>{value.title}</p>
-                                <p className='text-[#9C9D9F] truncate'>{value.text}</p>
-                            </div>
-                            <label className='relative w-15 h-6 rounded-[8px] ml-3
-                            overflow-hidden bg-[#f23e3e49]'>
-                                <div className='absolute top-[50%] translate-y-[-50%] 
-                                w-[50%] h-[18px] bg-[#f00000] rounded-xl'></div>
-                                <input type='checkbox' hidden />
-                            </label>
-                        </div>
-                    ))}
+        <div className='bg-[#9c9d9f1a] flex flex-col justify-between rounded-xl shadow-lg overflow-hidden'>
+            <div>
+                <img src={imageUrl} className='h-48 w-full object-cover mb-6' />
+
+                <div className='grid grid-cols-2 gap-4 px-4'>
+                    <div>
+                        <p className='font-bold'>ID</p>
+                        <p className='text-[#9C9D9F]'>{item.dashboardUserId || 'empty'}</p>
+                    </div>
+
+                    <div>
+                        <p className='font-bold'>Email</p>
+                        <p className='text-[#9C9D9F]'>{item.email || 'empty'}</p>
+                    </div>
+
+                    <div>
+                        <p className='font-bold'>Title</p>
+                        <p className='text-[#9C9D9F]'>{item.title || 'empty'}</p>
+                    </div>
+
+                    <div>
+                        <p className='font-bold'>Category</p>
+                        <p className='text-[#9C9D9F]'>{item.category || 'empty'}</p>
+                    </div>
+
+                    <div>
+                        <p className='font-bold'>City</p>
+                        <p className='text-[#9C9D9F]'>{item.city || 'empty'}</p>
+                    </div>
+
+                    <div>
+                        <p className='font-bold'>Location</p>
+                        <p className='text-[#9C9D9F]'>{item.location || 'empty'}</p>
+                    </div>
+
+                    <div>
+                        <p className='font-bold'>Latitude</p>
+                        <p className='text-[#9C9D9F]'>{item.latitude || 'empty'}</p>
+                    </div>
+
+                    <div>
+                        <p className='font-bold'>Longitude </p>
+                        <p className='text-[#9C9D9F]'>{item.longitude || 'empty'}</p>
+                    </div>
+
                 </div>
             </div>
+
             <div className='flex mt-4'>
-                <button className='flex-1 bg-[#49D94E] pb-3 pt-2 text-white font-bold'>Approve</button>
-                <button className='flex-1 bg-[#F00000] pb-3 pt-2 text-white font-bold'>Reject</button>
+                <button
+                    onClick={onApprove}
+                    className='flex-1 bg-[#49D94E] py-2 text-white font-bold hover:bg-green-500'
+                >
+                    Approve
+                </button>
+
+                <button
+                    onClick={onReject}
+                    className='flex-1 bg-[#F00000] py-2 text-white font-bold hover:bg-red-500'
+                >
+                    Reject
+                </button>
             </div>
+
         </div>
-    )
+    );
 }
 
-export default RequestCard
+export default RequestCard;
