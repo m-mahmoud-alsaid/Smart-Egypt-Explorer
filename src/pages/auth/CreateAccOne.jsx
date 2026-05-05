@@ -21,6 +21,7 @@ function CreateAccOne() {
         Title: "",
         City: "",
         document: null,
+        photo: null
     });
 
     const handleChange = (e) => {
@@ -43,11 +44,8 @@ function CreateAccOne() {
         setFormData((prev) => ({
             ...prev,
             BusinessType: value,
-
-            // reset
-            Title: "",
-            City: "",
-            document: null
+            document: null,
+            photo: null
         }));
     };
 
@@ -64,7 +62,15 @@ function CreateAccOne() {
 
         if (!formData.Title) return "Title is required";
         if (!formData.City) return "City is required";
-        if (!formData.document) return "ID is required";
+
+        if (formData.BusinessType === "Tour Guide") {
+            if (!formData.photo) return "Photo is required";
+            if (!formData.document) return "CV is required";
+        }
+
+        if (formData.BusinessType === "Restaurant" || formData.BusinessType === "Hotel") {
+            if (!formData.document) return "ID is required";
+        }
 
         return null;
     };
@@ -143,8 +149,14 @@ function CreateAccOne() {
             ...inputList,
             {
                 fieldType: 'file',
-                name: 'document',
+                name: 'photo',
                 placeholder: 'Upload your photo',
+                onChange: handleChange
+            },
+            {
+                fieldType: 'file',
+                name: 'document',
+                placeholder: 'Upload your CV',
                 onChange: handleChange
             }
         ]

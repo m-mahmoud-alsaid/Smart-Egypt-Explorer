@@ -10,8 +10,7 @@ import ForgetPasswordThree from '../pages/auth/ForgetPasswordThree'
 import ProtectedRoute from './ProtectedRoute'
 import Admin from '../pages/admin/Admin'
 
-import Profile from '../pages/profile/Profile'
-import Services from '../pages/profile/Services'
+import OwnerDashboard from '../pages/profile/OwnerDashboard'
 
 function AppRoutes() {
     return (
@@ -30,8 +29,7 @@ function AppRoutes() {
                 </ProtectedRoute>
             } />
 
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/services" element={<Services />} />
+            <Route path="/owner" element={<OwnerDashboard />} />
         </Routes>
     )
 }

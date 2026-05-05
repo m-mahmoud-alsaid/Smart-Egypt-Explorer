@@ -151,6 +151,7 @@ function Admin() {
                         cardListInfo={data}
                         onApprove={handleApprove}
                         onReject={handleReject}
+                        type={type}
                     />
                 }
             />
@@ -167,6 +168,7 @@ function Admin() {
                     cardListInfo={data}
                     onApprove={handleHide}
                     onReject={handleDelete}
+                    type={type}
                 />
             }
         />

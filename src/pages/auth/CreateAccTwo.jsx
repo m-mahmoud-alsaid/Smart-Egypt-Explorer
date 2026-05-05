@@ -17,7 +17,7 @@ function CreateAccTwo() {
     const [formData, setFormData] = useState({
         dashboardUserId: Number(localStorage.getItem("dashboardUserId") || 0),
         name: "",
-        age: "",
+        age: null,
         languages: "",
         category: "",
         location: "",
