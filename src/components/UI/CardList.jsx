@@ -1,7 +1,7 @@
 import RequestCard from './RequestCard';
 import TheInfoCard from './TheInfoCard';
 
-function CardList({ mode = 'request', cardListInfo = [], onApprove, onReject }) {
+function CardList({ mode = 'request', cardListInfo = [], onApprove, onReject, type }) {
     return (
         <div className='grid gap-8 
         grid-cols-[repeat(auto-fill,minmax(250px,1fr))]
@@ -11,12 +11,14 @@ function CardList({ mode = 'request', cardListInfo = [], onApprove, onReject }) 
                     <RequestCard
                         key={value.dashboardUserId}
                         requestInfoList={value}
+                        type={type}
                         onApprove={() => onApprove(value.dashboardUserId)}
                         onReject={() => onReject(value.dashboardUserId)} />
                 ) : (
                     <TheInfoCard
                         key={value.dashboardUserId}
-                        requestInfoList={value}
+                        infoItem={value}
+                        type={type}
                         onHide={() => onApprove(value.dashboardUserId)}
                         onDelete={() => onReject(value.dashboardUserId)} />
                 )

@@ -41,6 +41,7 @@ function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const errorMsg = validate();
         if (errorMsg) {
             toast.error(errorMsg);
@@ -51,47 +52,61 @@ function Login() {
 
         try {
             const data = await postAuthData(loginApi, formData);
-            if (data.status?.toLowerCase() === "pending") {
+
+            const status = data.status?.toLowerCase();
+
+            if (status === "pending") {
                 toast(
                     <div className='flex flex-col gap-1'>
                         <strong>Account Pending</strong>
                         <span>Please wait until it is approved by the administrator.</span>
                     </div>,
-                    {
-                        icon: "⚠️"
-                    }
+                    { icon: "⚠️" }
                 );
                 return;
             }
 
-            if (data.status?.toLowerCase() === "deleted") {
+            if (status === "deleted") {
                 toast(
                     <div className="flex flex-col gap-1">
                         <strong>Account Deleted</strong>
                         <span>This account has been deleted and is no longer available.</span>
                     </div>,
-                    {
-                        icon: "❌"
-                    }
+                    { icon: "❌" }
                 );
                 return;
             }
+
+            if (status === "rejected") {
+                toast(
+                    <div className="flex flex-col gap-1">
+                        <strong>Account Rejected</strong>
+                        <span>Your account has been rejected by admin.</span>
+                    </div>,
+                    { icon: "🚫" }
+                );
+                return;
+            }
+
             toast.success(data.message || "Login successful");
+
             login(data);
-            if (data.role?.toLowerCase() === 'admin') {
-                navigate('/admin');
-                return;
+
+            const role = data.role?.toLowerCase();
+
+            if (role === "admin") {
+                navigate("/admin");
+            } else if (role === "owner") {
+                navigate("/owner");
             }
-            else if (data.role?.toLowerCase() === 'owner') {
-                navigate('/profile');
-                return;
-            }
+
         } catch {
-            toast.error('Login Failed');
+            toast.error("Login Failed");
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     };
+
     let inputList = [
         {
             fieldType: 'input',

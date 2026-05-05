@@ -1,28 +1,47 @@
-import Image from '../../assets/images/login.png'
+import Image from '../../assets/images/login.png';
 
-function ServiceCard({ requestInfoList = [] }) {
+function ServiceCard({ requestInfoList, onDelete, onEdit }) {
+
+    const baseURL = import.meta.env.VITE_BASE_URL;
+
     return (
         <div className='bg-[#9c9d9f1a] flex flex-col justify-between rounded-xl overflow-hidden'>
-            <div className='flex flex-col'>
-                <img src={Image} className='h-48 mb-8 object-cover'></img>
-                <div className='flex flex-col gap-5 sm:flex-row sm:flex-wrap'>
-                    {requestInfoList.map((value, index) => (
-                        <div className='grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] pl-3 pr-3 flex-1' key={index}>
-                            <div className='truncate'>
-                                <p className='font-bold truncate'>{value.title}</p>
-                                <p className='text-[#9C9D9F] truncate'>{value.text}</p>
-                            </div>
-                        </div>
-                    ))}
+
+            <div>
+                <img
+                    src={
+                        requestInfoList?.imageUrl
+                            ? baseURL + requestInfoList.imageUrl
+                            : Image
+                    }
+                    className='h-48 w-full object-cover'
+                />
+
+                <div className='p-3'>
+                    <p className='font-bold text-xl'>{requestInfoList?.title || 'No Title'}</p>
+                    <p className='text-gray-500'>{requestInfoList?.description || 'No Description'}</p>
+                    <p className='text-green-500 font-bold'>{requestInfoList?.price || 'No Price'}</p>
                 </div>
             </div>
-            <div className='flex mt-4'>
-                <button className='flex-1 bg-[#49D94E] pb-3 pt-2 text-white font-bold'>Edit</button>
-                <button className='flex-1 bg-[#FFCA28] pb-3 pt-2 text-white font-bold'>Hide</button>
-                <button className='flex-1 bg-[#F00000] pb-3 pt-2 text-white font-bold'>Delete</button>
+
+            <div className='flex'>
+                <button
+                    onClick={() => onEdit(requestInfoList)}
+                    className='flex-1 bg-green-500 font-bold hover:bg-green-600 duration-300 text-white py-2'
+                >
+                    Edit
+                </button>
+
+                <button
+                    onClick={() => onDelete(requestInfoList.ownerServiceId)}
+                    className='flex-1 bg-red-500 font-bold hover:bg-red-600 duration-300 text-white py-2'
+                >
+                    Delete
+                </button>
             </div>
+
         </div>
-    )
+    );
 }
 
-export default ServiceCard
+export default ServiceCard;
