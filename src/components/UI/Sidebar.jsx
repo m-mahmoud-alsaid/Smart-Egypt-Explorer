@@ -1,5 +1,5 @@
 import PageTitle from './PageTitle'
-import PageIcon from '../../assets/icons/egypt_key.png'
+import PageIcon from '../../assets/icons/logo.png'
 
 import { NavLink, useSearchParams } from "react-router-dom";
 import { useContext } from 'react';

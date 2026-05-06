@@ -1,4 +1,4 @@
-import PageImage from '../../assets/icons/egypt_key.png'
+import PageImage from '../../assets/icons/logo.png'
 
 function PageTitle() {
     return (
